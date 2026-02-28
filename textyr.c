@@ -32,18 +32,24 @@ void txTriggerEvent(char *title, unsigned char event) {
 	}
 }
 
-extern void txDescribe(char *description) {
+ void txDescribe(char *description) {
 	puts(description);
 }
 
-unsigned short txAction(char **actions) {
-	unsigned short action;
+int txAction(char **actions) {
+	int action;
 	txNews("What Will You Do?");
 
-	_txPrintStrArray(actions);
+	int size = _txPrintStrArray(actions);
 
 	printf("] ");
-	scanf("%hu", &action);
+	scanf("%i", &action);
+
+	while (action > size) {
+		size = _txPrintStrArray(actions);
+		printf("] ");
+		scanf("%i", &action);
+	}
 
 	return action;
 }
@@ -63,8 +69,11 @@ void txInit() {
 
 /* private area */
 
-void _txPrintStrArray(char **strarray) {
-	for (unsigned short i = 0; strarray[i] != NULL; i++) {
-		printf("	%hu) %s\n", i + 1, strarray[i]);
+int _txPrintStrArray(char **strarray) {
+	int size;
+	for (size = 0; strarray[size] != NULL; size++) {
+		printf("	%hu) %s\n", i + 1, strarray[size]);
 	}
+	size++;
+	return size;
 }

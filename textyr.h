@@ -19,13 +19,13 @@
 
 extern void txTriggerEvent(char *title, unsigned char event);
 extern void txDescribe(char *description);
-extern unsigned short txAction(char **actions);
+extern int txAction(char **actions);
 extern void txNews(char *news);
 extern char txRandomChoice();
 extern void txInit();
 
 /* private area */
 
-extern void _txPrintStrArray(char **strarray);
+extern int _txPrintStrArray(char **strarray);
 
 #endif
